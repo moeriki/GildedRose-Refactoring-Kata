@@ -8,7 +8,7 @@ class Item {
 
 class Shop {
   constructor(items = []) {
-    this.items = items;
+    this.items = items.map(coerceValidItem);
   }
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
@@ -67,6 +67,14 @@ class Shop {
 
     return new Shop(this.items);
   }
+}
+
+function coerceValidItem(item) {
+  if (item.quality > 50) {
+    item.quality = 50;
+    console.warn(`${item.name}: quality cannot be greater than 50`);
+  }
+  return item;
 }
 
 module.exports = {

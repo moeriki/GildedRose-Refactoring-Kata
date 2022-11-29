@@ -1,5 +1,7 @@
 const { Shop, Item } = require('../src/gilded_rose');
 
+jest.spyOn(console, 'warn').mockImplementation(() => {});
+
 describe('Gilded Rose', function () {
   it('should degrade sellIn', () => {
     let shop = new Shop([new Item('foo', 1, 0)]);
@@ -37,5 +39,17 @@ describe('Gilded Rose', function () {
     shop = shop.updateQuality(); // +2
     shop = shop.updateQuality(); // +2
     expect(shop.items[0].quality).toBe(5);
+  });
+
+  it('should never have quality over 50', () => {
+    const shop = new Shop([new Item('Aged Brie', 1, 55)]);
+    expect(shop.updateQuality().items[0].quality).toBe(50);
+  });
+
+  it('should never increase quality over 50', () => {
+    let shop = new Shop([new Item('Aged Brie', 1, 49)]);
+    shop = shop.updateQuality(); // +1
+    shop = shop.updateQuality(); // +0
+    expect(shop.items[0].quality).toBe(50);
   });
 });
