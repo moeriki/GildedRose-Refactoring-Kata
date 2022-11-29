@@ -74,6 +74,10 @@ function coerceValidItem(item) {
     item.quality = 50;
     console.warn(`${item.name}: quality cannot be greater than 50`);
   }
+  if (item.name === 'Sulfuras, Hand of Ragnaros') {
+    item.sellIn = Infinity;
+    item.quality = 80;
+  }
   return item;
 }
 

@@ -56,4 +56,15 @@ describe('Shop', function () {
       expect(shop.items[0].quality).toBe(5);
     });
   });
+
+  describe('Item: Sulfuras, Hand of Ragnaros', () => {
+    it('should never update its quality / sellin', () => {
+      let shop = new Shop([new Item('Sulfuras, Hand of Ragnaros', 10, 10)]);
+      expect(shop.items[0].quality).toBe(80);
+      expect(shop.items[0].sellIn).toBe(Infinity);
+      shop = shop.updateQuality();
+      expect(shop.items[0].quality).toBe(80);
+      expect(shop.items[0].sellIn).toBe(Infinity);
+    });
+  });
 });
