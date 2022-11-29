@@ -55,6 +55,15 @@ describe('Shop', function () {
     });
   });
 
+  describe('Category: Conjured', () => {
+    it('should degrade twice as fast', () => {
+      let shop = new Shop([new Item('Conjured Mana Cake', 1, 10)]);
+      shop = shop.update(); // -2
+      shop = shop.update(); // -4
+      expect(shop.items[0].quality).toBe(4);
+    });
+  });
+
   describe('Category: Legendary', () => {
     it('should never update its quality / sellin', () => {
       let shop = new Shop([new Item('Sulfuras, Hand of Ragnaros', 10, 10)]);

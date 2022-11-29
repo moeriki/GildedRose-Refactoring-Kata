@@ -8,6 +8,7 @@ const LEGENDARY_QUALITY = 80;
 
 const Category = {
   AGED_QUALITY: 'AGED_QUALITY',
+  CONJURED: 'CONJURED',
   LEGENDARY: 'LEGENDARY',
   TICKETS: 'TICKETS',
 };
@@ -25,6 +26,9 @@ class Item {
   get category() {
     if (this.name === 'Aged Brie') {
       return Category.AGED_QUALITY;
+    }
+    if (this.name === 'Conjured Mana Cake') {
+      return Category.CONJURED;
     }
     if (this.name === 'Sulfuras, Hand of Ragnaros') {
       return Category.LEGENDARY;
@@ -83,6 +87,9 @@ class Shop {
         switch (item.category) {
           case Category.AGED_QUALITY:
             newItem.quality += defaultQualityDelta;
+            break;
+          case Category.CONJURED:
+            newItem.quality -= defaultQualityDelta * 2;
             break;
           case Category.TICKETS:
             if (item.sellIn <= 0) {
