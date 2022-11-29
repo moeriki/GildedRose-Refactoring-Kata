@@ -67,4 +67,32 @@ describe('Shop', function () {
       expect(shop.items[0].sellIn).toBe(Infinity);
     });
   });
+
+  describe('Item: Backstage passes to a TAFKAL80ETC concert', () => {
+    test('should increase in quality as sellIn approaches', () => {
+      let shop = new Shop([
+        new Item('Backstage passes to a TAFKAL80ETC concert', 11, 20),
+      ]);
+      shop = shop.updateQuality(); // sellIn: 10, quality: 21
+      shop = shop.updateQuality(); // sellIn: 9, quality: 23
+      expect(shop.items[0].sellIn).toBe(9);
+      expect(shop.items[0].quality).toBe(23);
+      shop = shop.updateQuality(); // sellIn: 8, quality: 25
+      shop = shop.updateQuality(); // sellIn: 7, quality: 27
+      shop = shop.updateQuality(); // sellIn: 6, quality: 29
+      shop = shop.updateQuality(); // sellIn: 5, quality: 31
+      shop = shop.updateQuality(); // sellIn: 4, quality: 34
+      expect(shop.items[0].sellIn).toBe(4);
+      expect(shop.items[0].quality).toBe(34);
+      shop = shop.updateQuality(); // sellIn: 3, quality: 37
+      shop = shop.updateQuality(); // sellIn: 2, quality: 40
+      shop = shop.updateQuality(); // sellIn: 1, quality: 43
+      expect(shop.items[0].sellIn).toBe(1);
+      expect(shop.items[0].quality).toBe(43);
+      shop = shop.updateQuality(); // sellIn: 0, quality: 47
+      shop = shop.updateQuality(); // sellIn: -1, quality: 0
+      expect(shop.items[0].sellIn).toBe(-1);
+      expect(shop.items[0].quality).toBe(0);
+    });
+  });
 });
