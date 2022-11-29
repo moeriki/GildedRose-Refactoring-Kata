@@ -19,4 +19,15 @@ describe('Gilded Rose', function () {
     shop = shop.updateQuality();
     expect(shop.items[0].quality).toBe(7);
   });
+
+  it('should not degrade quality under 0', () => {
+    let shop1 = new Shop([new Item('foo', 10, 0)]);
+    shop1 = shop1.updateQuality();
+    shop1 = shop1.updateQuality();
+    let shop2 = new Shop([new Item('foo', 0, 0)]);
+    shop2 = shop2.updateQuality();
+    shop2 = shop2.updateQuality();
+    expect(shop1.items[0].quality).toBe(0);
+    expect(shop2.items[0].quality).toBe(0);
+  });
 });
