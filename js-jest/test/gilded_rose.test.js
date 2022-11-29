@@ -15,8 +15,8 @@ describe('Gilded Rose', function () {
 
   it('should degrade quality by two when expired', () => {
     let shop = new Shop([new Item('foo', 1, 10)]);
-    shop = shop.updateQuality();
-    shop = shop.updateQuality();
+    shop = shop.updateQuality(); // -1
+    shop = shop.updateQuality(); // -2
     expect(shop.items[0].quality).toBe(7);
   });
 
@@ -29,5 +29,13 @@ describe('Gilded Rose', function () {
     shop2 = shop2.updateQuality();
     expect(shop1.items[0].quality).toBe(0);
     expect(shop2.items[0].quality).toBe(0);
+  });
+
+  it('should upgrade "Aged Brie" over time', () => {
+    let shop = new Shop([new Item('Aged Brie', 1, 0)]);
+    shop = shop.updateQuality(); // +1
+    shop = shop.updateQuality(); // +2
+    shop = shop.updateQuality(); // +2
+    expect(shop.items[0].quality).toBe(5);
   });
 });
