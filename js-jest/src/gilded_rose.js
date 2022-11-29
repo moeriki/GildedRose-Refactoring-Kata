@@ -57,7 +57,7 @@ class Shop {
       }
     }
 
-    return this.items;
+    return new Shop(this.items);
   }
 }
 
